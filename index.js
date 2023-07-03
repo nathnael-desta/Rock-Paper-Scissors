@@ -16,10 +16,38 @@ function playRound(playerSelection,computerSelection) {
     computerSelection == "rock" && playerSelection == "scissors" ||
     computerSelection == "paper" && playerSelection == "rock" ||
     computerSelection == "scissors" && playerSelection == "paper"
-    ?`You lose! ${computerSelection} beats ${playerSelection}` :
+    ?`You Lose! ${computerSelection} beats ${playerSelection}` :
     `Draw! ${playerSelection} draws against ${computerSelection}`;
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection,computerSelection));
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("enter hand");
+        playerSelection = playerSelection.toLowerCase();
+        computerSelection = getComputerChoice().toLowerCase();
+        let result = playRound(playerSelection, computerSelection);
+        console.log(result);
+
+        if (result.slice(0,8) == "You Win!") {
+            playerScore++;
+        } else if (result.slice(0,8) == "You Lose") {
+            computerScore++;
+        }
+
+        console.log(`Player: ${playerScore}
+                     computer: ${computerScore}`);
+
+        if (playerScore == 3 || computerScore == 3) {
+            break;
+        }
+
+    }
+    console.log(playerScore > computerScore ? "player has won" :
+                computerScore > playerScore ? "computer has won" :
+                "it is a draw"
+    )
+}
+
+game();
