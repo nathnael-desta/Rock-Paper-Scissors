@@ -20,6 +20,71 @@ function playRound(playerSelection,computerSelection) {
     `Draw! ${playerSelection} draws against ${computerSelection}`;
 }
 
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissors = document.querySelector(".scissors");
+const result = document.querySelector(".result");
+const player = document.querySelector('.player');
+const computer = document.querySelector('.computer');
+const reset = document.querySelector('.reset');
+const final = document.querySelector('.final');
+
+
+let playerScore = 0;
+let computerScore = 0;
+let turn = 0;
+let isFinished = false;
+
+function callPlayRound() {
+    if (isFinished) return;
+    const playerSelection = this.textContent.toLowerCase();
+    const computerSelection = getComputerChoice();
+    result.textContent = playRound(playerSelection,computerSelection);
+
+    if (result.textContent.slice(0,8) == "You Win!") {
+        playerScore++;
+    } else if (result.textContent.slice(0,8) == "You Lose") {
+        computerScore++;
+    }
+    player.textContent = `Player: ${playerScore}      `;
+    computer.textContent = `Computer: ${computerScore}`;
+    turn++;
+    if (turn == 5) {
+        isFinished = true;
+        final.textContent = (
+            playerScore > computerScore ? `player wins`:
+            playerScore < computerScore ? `computer wins`:
+            `draw`)
+    }
+    
+
+}
+
+function reseter(){
+    isFinished = false;
+    playerScore = 0;
+    computerScore = 0;
+    result.textContent = '';
+    final.textContent = '';
+    turn = 0;
+    player.textContent = '';
+    computer.textContent = '';
+}
+
+rock.addEventListener('click',callPlayRound);
+paper.addEventListener('click',callPlayRound);
+scissors.addEventListener('click',callPlayRound);
+reset.addEventListener('click', reseter);
+
+
+
+
+
+
+
+
+
+/*
 function game(){
     let playerScore = 0;
     let computerScore = 0;
@@ -48,6 +113,9 @@ function game(){
                 computerScore > playerScore ? "computer has won" :
                 "it is a draw"
     )
+    
 }
 
+
 game();
+*/
